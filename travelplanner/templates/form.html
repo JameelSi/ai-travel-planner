@@ -2,15 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Travel Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f4f8;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccd6dd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #ffffff;
+            transition: border-color 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .itinerary {
+            margin-top: 40px;
+            white-space: pre-wrap;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+    </style>
 </head>
 <body>
-    <h1>Plan Your Trip</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Generate Itinerary</button>
-    </form>
+    <div class="card">
+        <h1>Plan Your Trip</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.destination.label_tag }}
+            {{ form.destination }}
+
+            {{ form.start_date.label_tag }}
+            {{ form.start_date }}
+
+            {{ form.end_date.label_tag }}
+            {{ form.end_date }}
+
+            {{ form.budget.label_tag }}
+            {{ form.budget }}
+
+            {{ form.style.label_tag }}
+            {{ form.style }}
+
+            <button type="submit">Generate Itinerary</button>
+        </form>
+
+        {% if itinerary %}
+            <div class="itinerary">
+                <h2>Your Itinerary</h2>
+                <p>{{ itinerary|safe }}</p>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>

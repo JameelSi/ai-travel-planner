@@ -1,15 +1,22 @@
-# travelplanner/views.py
 from django.shortcuts import render
-from .forms import TravelForm
-from .itinerary_engine import generate_itinerary  # We'll create this next
+from .forms import TravelPlanForm
+from .itinerary_engine import generate_itinerary
 
 def plan_trip(request):
     if request.method == 'POST':
-        form = TravelForm(request.POST)
+        form = TravelPlanForm(request.POST)
         if form.is_valid():
+            # Extract data from the form
             data = form.cleaned_data
-            itinerary = generate_itinerary(data)  # This function will generate the itinerary using OpenAI
-            return render(request, 'itinerary.html', {'itinerary': itinerary})
+            itinerary = generate_itinerary(data)  # Send the data to OpenAI
+            
+            # Pass the form data and the itinerary to the template
+            context = {
+                'form': form,
+                'itinerary': itinerary,
+            }
+            return render(request, 'form.html', context)
     else:
-        form = TravelForm()
+        form = TravelPlanForm()
+
     return render(request, 'form.html', {'form': form})
