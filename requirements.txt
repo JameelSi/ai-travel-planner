@@ -1,0 +1,17 @@
+# Core web framework
+Django>=4.2
+
+# OpenAI API client
+openai>=1.0.0
+
+# Load environment variables securely (optional but recommended)
+python-dotenv>=1.0.0
+
+# Optional: Improve form rendering (if you use crispy forms or similar)
+# django-crispy-forms
+
+# Optional: Gunicorn for production server (if deploying to something like Heroku)
+# gunicorn
+
+# Optional: psycopg2 if using PostgreSQL in production
+# psycopg2-binary
